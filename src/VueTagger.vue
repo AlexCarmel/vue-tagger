@@ -28,6 +28,10 @@ export default {
     placeholder: {
       type: String,
       default: 'Enter a tag...'
+  },
+    prefix: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -69,7 +73,7 @@ export default {
       })
       window.addEventListener('awesomplete-select', (e) => {
         setTimeout(() => {
-          const tagName = e.text.value.trim()
+          const tagName = this.prefix + e.text.value.trim()
           this.addTag(tagName)
           setTimeout(() => {
             this.currentTag = ''
@@ -80,7 +84,7 @@ export default {
     onKeypress (e) {
       const key = this.delimiter.charCodeAt(0)
       if (e.which === key) {
-        const tagName = this.currentTag.trim().replace(this.delimiter, '')
+        const tagName = this.prefix + this.currentTag.trim().replace(this.delimiter, '')
         this.addTag(tagName)
         setTimeout(() => {
           this.currentTag = ''
