@@ -82,7 +82,9 @@ export default {
       }, false)
     },
     onKeypress (e) {
-
+      if (this.currentTag.trim().replace(this.delimiter,'') === '') {
+          return;
+      }
       const index = this.delimiter.indexOf(String.fromCharCode(e.which));
       if (index !== -1) {
         const tagName = this.prefix + this.currentTag.trim().replace(this.delimiter.charAt(index), '').replace(new RegExp('^' + this.prefix), '')
