@@ -78,9 +78,9 @@ export default {
       }, false)
     },
     onKeypress (e) {
-      const key = this.delimiter.charCodeAt(0)
-      if (e.which === key) {
-        const tagName = this.currentTag.trim().replace(this.delimiter, '')
+      const index = this.delimiter.indexOf(e.which);
+      if (index !== -1) {
+        const tagName = this.currentTag.trim().replace(this.delimiter.charAt(index), '')
         this.addTag(tagName)
         setTimeout(() => {
           this.currentTag = ''
