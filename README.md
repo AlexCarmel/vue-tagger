@@ -10,7 +10,7 @@ $ yarn add vue-tagger
 _or_
 
 ```js
-$ npm install vue-tagger --save
+$ npm install AlexCarmel/vue-tagger --save
 ```
 
 ## Usage
