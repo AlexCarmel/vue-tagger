@@ -82,9 +82,12 @@ export default {
       }, false)
     },
     onKeypress (e) {
-      const key = this.delimiter.charCodeAt(0)
-      if (e.which === key) {
-        const tagName = this.prefix + this.currentTag.trim().replace(this.delimiter, '').replace(new RegExp('^' + this.prefix), '')
+      if (this.currentTag.trim().replace(this.delimiter,'') === '') {
+          return;
+      }
+      const index = this.delimiter.indexOf(String.fromCharCode(e.which));
+      if (index !== -1) {
+        const tagName = this.prefix + this.currentTag.trim().replace(this.delimiter.charAt(index), '').replace(new RegExp('^' + this.prefix), '')
         this.addTag(tagName)
         setTimeout(() => {
           this.currentTag = ''
