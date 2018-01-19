@@ -1,10 +1,7 @@
 # vue-tagger
 
-[![Build Status](https://travis-ci.org/syropian/vue-tagger.svg?branch=master)](https://travis-ci.org/syropian/vue-tagger)
 
-> Simple tagging component for Vue with built-in autocomplete.
-
-_Note: This component was specifically built for [Astral](https://astralapp.com), and while it's fairly general purpose, it omits many features of a fully-fledged tagging component. It's unlikely that I will add any additional features unless I personally need them._
+> Simple tagging component for Vue with built-in autocomplete. It supports tag prefix, multiple delimeters and Awesomplete's label/value array
 
 ## Install
 ```js
@@ -21,7 +18,7 @@ $ npm install vue-tagger --save
 ```js
 <template>
   <div class="my-component">
-    <vue-tagger :tags="tags" @change="logTags" :placeholder="'Enter a tag...'" :delimiter="','" :prefix="'#'"></vue-tagger>
+    <vue-tagger :tags="tags" @change="logTags" :placeholder="'Enter a tag...'" :delimiter="', '" :prefix="'#'"></vue-tagger>
   </div>
 </template>
 <script>
@@ -35,7 +32,7 @@ export default {
       tags: [
         { name: 'JavaScript', selected: true },
         { name: 'Ruby', selected: false },
-        { name: 'PHP', selected: true },
+        { name: ['PHP','PHP 7+'], selected: true },
         { name: 'Crystal', selected: true },
         { name: 'Python', selected: false }
       ]
