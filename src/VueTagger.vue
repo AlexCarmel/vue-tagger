@@ -28,6 +28,10 @@ export default {
     placeholder: {
       type: String,
       default: 'Enter a tag...'
+  },
+    prefix: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -63,13 +67,13 @@ export default {
       this.awesomplete = new Awesomplete(this.$refs['vue-tagger-input'], {
         autoFirst: true,
         filter (text, input) {
-          return fuzzysearch(input.toLowerCase(), text.toLowerCase())
+          return fuzzysearch(input.toLowerCase().replace(new RegExp('^' + this.prefix), ''), text.toLowerCase())
         },
         list: this.autocompleteList
       })
       window.addEventListener('awesomplete-select', (e) => {
         setTimeout(() => {
-          const tagName = e.text.value.trim()
+          const tagName = this.prefix + e.text.value.trim().replace(new RegExp('^' + this.prefix), '')
           this.addTag(tagName)
           setTimeout(() => {
             this.currentTag = ''
@@ -80,7 +84,7 @@ export default {
     onKeypress (e) {
       const key = this.delimiter.charCodeAt(0)
       if (e.which === key) {
-        const tagName = this.currentTag.trim().replace(this.delimiter, '')
+        const tagName = this.prefix + this.currentTag.trim().replace(this.delimiter, '').replace(new RegExp('^' + this.prefix), '')
         this.addTag(tagName)
         setTimeout(() => {
           this.currentTag = ''
@@ -97,7 +101,7 @@ export default {
       }
     },
     getTagIndexByName (name) {
-      return this.tagList.findIndex(tag => Array.isArray(tag.name) ? tag.name[1].trim().toLowerCase() : tag.name.trim().toLowerCase() === name.trim().toLowerCase())
+      return this.tagList.findIndex(tag => Array.isArray(tag.name) ? tag.name[1].trim().toLowerCase() : tag.name.trim().toLowerCase() === name.trim().toLowerCase().replace(new RegExp('^' + this.prefix), ''))
     },
     addTag (name) {
       const tagIndex = this.getTagIndexByName(name)
