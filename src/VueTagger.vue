@@ -1,7 +1,7 @@
 <template>
 <div class="vue-tagger">
-  <span class="vue-tagger-tag" v-for="(tag, index) in visibleTags" :key="tag.name">
-    <span class="vue-tagger-tag-name">{{ tag.name }}</span>
+  <span class="vue-tagger-tag" v-for="(tag, index) in visibleTags" :key="Array.isArray(tag.name) ? tag.name[1] : tag.name">
+    <span class="vue-tagger-tag-name">{{ Array.isArray(tag.name) ? tag.name[1] : tag.name }}</span>
     <span class="vue-tagger-delete-tag" @click="deleteTag(tag)">&times;</span>
   </span>
   <div class="vue-tagger-input-container">
